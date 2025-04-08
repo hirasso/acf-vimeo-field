@@ -1,0 +1,29 @@
+{
+  "name": "acf-vimeo-field",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "prepare": "husky",
+    "format:assets": "pnpm exec prettier --write '**/*.{ts,js,css,scss}'",
+    "format:php": "./vendor/bin/pint src templates",
+    "version": "pnpm changeset version && tools/cli/cli.js version:patch",
+    "pot:make": "SLUG=$(basename \"$(pwd)\"); wp i18n make-pot . languages/$SLUG.pot --include=src,$SLUG.php",
+    "analyse": "vendor/bin/phpstan analyse --memory-limit=2G"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "@types/node": "^22.14.0",
+    "fast-glob": "^3.3.3",
+    "husky": "^9.1.1",
+    "lint-staged": "^15.2.7",
+    "picocolors": "^1.1.1",
+    "prettier": "^3.3.3"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
+  }
+}

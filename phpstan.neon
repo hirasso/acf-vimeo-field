@@ -1,0 +1,11 @@
+parameters:
+  level: 5
+
+  bootstrapFiles:
+    - vendor/php-stubs/acf-pro-stubs/acf-pro-stubs.php
+
+  paths:
+    - acf-vimeo-field.php
+    - src/
+
+  ignoreErrors:

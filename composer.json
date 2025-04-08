@@ -1,0 +1,35 @@
+{
+    "name": "hirasso/acf-vimeo-field",
+    "description": "An ACF field to embed video files from vimeo.com directly on your site 🍿",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Hirasso\\ACFVimeoField\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rasso Hilber",
+            "email": "mail@rassohilber.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "vimeo/vimeo-api": "^3.0",
+        "illuminate/collections": "^12.7"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.21",
+        "phpstan/phpstan": "^2.1",
+        "php-stubs/acf-pro-stubs": "^6.3",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "phpstan/extension-installer": "^1.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    }
+}

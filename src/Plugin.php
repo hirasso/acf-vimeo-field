@@ -32,13 +32,13 @@ final readonly class Plugin
         $field = new ACFVimeoField($this);
 
         // For early debugging
-        $field->getAjaxResponse([
-            "action" => "acf/fields/vimeo-video/search",
-            "url" => "https://vimeo.com/1072458229",
-            "field_key" => "field_67f50c9fa66b4",
-            "nonce" => "d7e8aee5ba",
-            "post_id" => "140",
-        ]);
+        // $field->getAjaxResponse([
+        //     "action" => "acf/fields/vimeo-video/search",
+        //     "url" => "https://vimeo.com/1072458229",
+        //     "field_key" => "field_67f50c9fa66b4",
+        //     "nonce" => "d7e8aee5ba",
+        //     "post_id" => "140",
+        // ]);
     }
 
     /**

@@ -114,15 +114,15 @@ class ACFVimeoField extends \acf_field
             throw new Exception(esc_html($response['body']['error'] ?? 'Error requesting the Vimeo API.'));
         }
 
-        $data = collect([
-            'ID' => $videoID,
-            'url' => $videoURL
-        ])
-        ->merge(
-            collect($response['body'])
-            ->only(['width', 'height', 'files'])
-        )
-        ->all();
+        $data = [
+            ...[
+                'ID' => $videoID,
+                'url' => $videoURL
+            ],
+            ...collect($response['body'])
+                ->only(['width', 'height', 'files'])
+                ->all(),
+        ];
 
         $video = $this->parseVimeoVideo($data);
 

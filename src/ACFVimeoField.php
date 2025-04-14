@@ -242,7 +242,8 @@ class ACFVimeoField extends \acf_field
             return '';
         }
         $ratio = $source->width / $source->height;
-        return "<video playsinline controls preload='metadata' width='$source->width' height='$source->height' src='$source->link' type='$source->type' style='--aspect-ratio: $ratio'>";
+        $orientation = $ratio < 1 ? 'portrait' : 'landscape';
+        return "<video playsinline controls data-$orientation preload='metadata' width='$source->width' height='$source->height' src='$source->link' type='$source->type' style='--aspect-ratio: $ratio'>";
     }
 
     /**

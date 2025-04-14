@@ -37,9 +37,11 @@ class VimeoClient
     /**
      * Get a video ID from a URL
      */
-    public function getVideoIdFromUrl(string $url)
+    public function getVideoIdFromUrl(string $url): ?string
     {
-        preg_match('/(?:vimeo\.com\/)(?<id>[\d]+$)/m', $url, $matches);
-        return $matches['id'] ?? false;
+        if (preg_match('/vimeo\.com\/(?:video\/|manage\/videos\/)?(?<id>\d+)/', $url, $matches)) {
+            return $matches['id'];
+        }
+        return null;
     }
 }

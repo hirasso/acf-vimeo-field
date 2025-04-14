@@ -31,11 +31,51 @@
    */
   const acf = /** @type {any} */ (window).acf;
 
-  const Field = acf.models.OembedField.extend({
+  const ACFVimeoField = acf.models.OembedField.extend({
     type: "vimeo_video",
+
+    previousSearchValue: "",
+    searchTimeout: 0,
+
+    events: {
+      'click [data-name="clear-button"]': "onClickClear",
+      "input .input-search": "onChangeSearch",
+      "keydown .input-search": "onKeyDownSearch",
+    },
 
     $control: function () {
       return this.$(".acf-vimeo-video");
+    },
+
+    /**
+     * Do a forced re-search when pressing Enter in the search input
+     * @param {KeyboardEvent} e
+     */
+    onKeyDownSearch(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        this.search(this.$search().val())
+      }
+    },
+
+    // Initiate a search if needed
+    maybeSearch() {
+      const { previousSearchValue } = this;
+      const searchValue = this.$search().val();
+
+      if (searchValue === previousSearchValue) {
+        return;
+      }
+
+      this.previousSearchValue = searchValue;
+
+      if (!searchValue) {
+        return this.clear();
+      }
+
+      clearTimeout(this.searchTimeout);
+      setTimeout(() => this.search(searchValue), 300);
     },
 
     /**
@@ -86,7 +126,7 @@
     },
   });
 
-  acf.registerFieldType(Field);
+  acf.registerFieldType(ACFVimeoField);
 
   /**
    * @param {string} message

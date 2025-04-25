@@ -8,6 +8,7 @@ namespace Hirasso\ACFVimeoField;
  * @var string $value
  * @var string $url
  * @var string $html
+ * @var string $placeholder
  */
 ?>
 
@@ -21,7 +22,7 @@ namespace Hirasso\ACFVimeoField;
     <?php acf_text_input([
         'class' => 'input-search',
         'value' => $url ?: "",
-        'placeholder' => __("Enter URL", 'acf'),
+        'placeholder' => $placeholder,
         'autocomplete' => 'off'
     ]); ?>
 

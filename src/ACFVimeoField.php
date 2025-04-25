@@ -11,6 +11,8 @@ use Exception;
  */
 class ACFVimeoField extends \acf_field
 {
+    public array $settings = [];
+
     public function __construct(
         protected Plugin $plugin,
     ) {
@@ -212,7 +214,7 @@ class ACFVimeoField extends \acf_field
      *
      *  Create the HTML interface for your field
      */
-    public function render_field($field)
+    public function render_field(array $field): void
     {
         $atts = ['class' => 'acf-vimeo-video'];
 
@@ -227,7 +229,8 @@ class ACFVimeoField extends \acf_field
             'value' => $field['value'],
             'field' => $field,
             'url'   => $video->url ?? null,
-            'html' => $this->getAdminPreviewPlayer($this->getAdminPreviewSource($video->files ?? []))
+            'html' => $this->getAdminPreviewPlayer($this->getAdminPreviewSource($video->files ?? [])),
+            'placeholder' => $field['placeholder'] ?? __("Enter URL", 'acf-vimeo-field')
         ];
 
         echo $this->plugin->template('field', $templateData);
@@ -272,12 +275,12 @@ class ACFVimeoField extends \acf_field
      */
     public function render_field_settings(array $field): void
     {
-        // acf_render_field_setting($field, [
-        //     'label'			=> __('Thumbhash', 'acf'),
-        //     'type'			=> 'true_false',
-        //     'name'			=> 'blurhash',
-        //     'ui'            => 1
-        // ]);
+        acf_render_field_setting($field, [
+            'label' => __('Placeholder', 'acf-vimeo-field'),
+            'type' => 'text',
+            'name' => 'placeholder',
+            'default_value' => 'Vimeo Video URL',
+        ]);
     }
 
     /*

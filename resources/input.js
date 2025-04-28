@@ -34,16 +34,16 @@
   const ACFVimeoField = acf.models.OembedField.extend({
     type: "vimeo_video",
 
-    previousSearchValue: "",
+    previousSearchValue: undefined,
     searchTimeout: 0,
 
     events: {
       'click [data-name="clear-button"]': "onClickClear",
-      "input .input-search": "onChangeSearch",
-      "keydown .input-search": "onKeyDownSearch",
+      "input .input-search": "maybeSearch",
+      "keydown .input-search": "onKeyDown",
     },
 
-    $control: function () {
+    $control() {
       return this.$(".acf-vimeo-video");
     },
 
@@ -51,7 +51,7 @@
      * Do a forced re-search when pressing Enter in the search input
      * @param {KeyboardEvent} e
      */
-    onKeyDownSearch(e) {
+    onKeyDown(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
@@ -80,8 +80,9 @@
 
     /**
      * @param {string} url
+     * @return {void}
      */
-    search: function (url) {
+    search(url) {
       // ajax
       const ajaxData = {
         action: "acf/fields/vimeo-video/search",

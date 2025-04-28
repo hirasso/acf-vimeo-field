@@ -112,8 +112,8 @@ class ACFVimeoField extends \acf_field
 
         $response = $this->plugin->vimeoClient()->requestVideo($videoID);
 
-        if ($response['status'] !== 200) {
-            throw new Exception(esc_html($response['body']['error'] ?? 'Error requesting the Vimeo API.'));
+        if (!$response || $response->status !== 200) {
+            throw new Exception(esc_html($response->getErrorMessage() ?? 'Error requesting the Vimeo API.'));
         }
 
         $data = [
@@ -121,7 +121,7 @@ class ACFVimeoField extends \acf_field
                 'ID' => $videoID,
                 'url' => $videoURL
             ],
-            ...collect($response['body'])
+            ...collect($response->body)
                 ->only(['width', 'height', 'files'])
                 ->all(),
         ];

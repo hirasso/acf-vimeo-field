@@ -2,11 +2,11 @@
 
 namespace Hirasso\ACFVimeoField;
 
-use Vimeo\Vimeo;
-
 class VimeoClient
 {
-    protected Vimeo $client;
+    protected string $baseUrl = 'https://api.vimeo.com';
+
+    protected array $headers;
 
     /**
      * Simple Vimeo API Client to retrieve video files and thumbnails.
@@ -20,8 +20,32 @@ class VimeoClient
         protected string $clientSecret,
         protected string $accessToken
     ) {
-        // Init Vimeo Api client
-        $this->client = new Vimeo($clientId, $clientSecret, $accessToken);
+        $this->headers = [
+            'Authorization' => 'Bearer ' . $this->accessToken,
+            'Accept'        => 'application/vnd.vimeo.*+json;version=3.4',
+        ];
+    }
+
+    /**
+     * Send a GET request to Vimeo API
+     */
+    protected function get(string $endpoint, array $query = []): ?VimeoClientResponse
+    {
+        $url = $this->baseUrl . $endpoint;
+
+        if (!empty($query)) {
+            $url = add_query_arg($query, $url);
+        }
+
+        $response = wp_remote_get($url, [
+            'headers' => $this->headers,
+        ]);
+
+        if (is_wp_error($response)) {
+            return null;
+        }
+
+        return new VimeoClientResponse($response);
     }
 
     /**
@@ -29,9 +53,9 @@ class VimeoClient
      *
      * @param string $videoId Vimeo Video Id.
      */
-    public function requestVideo(string $videoId): ?array
+    public function requestVideo(string $videoId)
     {
-        return $this->client->request("/videos/$videoId");
+        return $this->get("/videos/$videoId");
     }
 
     /**

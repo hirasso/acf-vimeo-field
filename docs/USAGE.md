@@ -16,10 +16,9 @@ define('VIMEO_ACCESS_TOKEN', env('VIMEO_ACCESS_TOKEN') ?? '');
 3. Add a field with type 'Vimeo Video' to one of your field groups
 4. Paste in a Vimeo URL on a page that contains that field group
 5. In your template, use `get_field('my_vimeo_field', $post_id)`
-6. The return value will look something like this:
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>The return value will look something like this:</summary>
 
 ```php
 Hirasso\ACFVimeoField\VimeoVideo {#3498 ▼

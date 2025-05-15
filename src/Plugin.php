@@ -82,8 +82,6 @@ final readonly class Plugin
     /**
      * Create a VimeoClient with Vimeo API credentials from constants
      *
-     * @requires VIMEO_CLIENT_ID
-     * @requires VIMEO_CLIENT_SECRET
      * @requires VIMEO_ACCESS_TOKEN
      *
      */
@@ -96,7 +94,7 @@ final readonly class Plugin
             return $client;
         }
 
-        $missingConstants = collect(['VIMEO_CLIENT_ID', 'VIMEO_CLIENT_SECRET', 'VIMEO_ACCESS_TOKEN'])
+        $missingConstants = collect(['VIMEO_ACCESS_TOKEN'])
             ->reject(fn ($const) => defined($const) && !!$const)
             ->map(fn ($const) => trim($const))
             ->join(', ');
@@ -105,11 +103,9 @@ final readonly class Plugin
             throw new \RuntimeException("Please setup Vimeo API credentials in your wp-config.php before use. Missing: $missingConstants");
         }
 
-        $clientId = defined('VIMEO_CLIENT_ID') && VIMEO_CLIENT_ID ? VIMEO_CLIENT_ID : '';
-        $clientSecret = defined('VIMEO_CLIENT_SECRET') && VIMEO_CLIENT_SECRET ? VIMEO_CLIENT_SECRET : '';
         $accessToken = defined('VIMEO_ACCESS_TOKEN') && VIMEO_ACCESS_TOKEN ? VIMEO_ACCESS_TOKEN : '';
 
-        $client = new VimeoClient($clientId, $clientSecret, $accessToken);
+        $client = new VimeoClient($accessToken);
 
         return $client;
     }

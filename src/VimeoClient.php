@@ -11,13 +11,9 @@ class VimeoClient
     /**
      * Simple Vimeo API Client to retrieve video files and thumbnails.
      *
-     * @param string $clientId Vimeo API Client Id
-     * @param string $clientSecret Vimeo API Client Secret
      * @param string $accessToken Vimeo API Access Token
      */
     public function __construct(
-        protected string $clientId,
-        protected string $clientSecret,
         protected string $accessToken
     ) {
         $this->headers = [

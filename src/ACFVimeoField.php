@@ -230,7 +230,7 @@ class ACFVimeoField extends \acf_field
             'field' => $field,
             'url'   => $video->url ?? null,
             'html' => $this->getAdminPreviewPlayer($this->getAdminPreviewSource($video->files ?? [])),
-            'placeholder' => $field['placeholder'] ?? __("Enter URL", 'acf-vimeo-field')
+            'placeholder' => $field['placeholder'] ?? __("Vimeo Video URL", 'acf-vimeo-field')
         ];
 
         echo $this->plugin->template('field', $templateData);

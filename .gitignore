@@ -6,6 +6,7 @@ node_modules/
 
 # Composer
 vendor/
+composer.lock
 
 # php-scoper
 php-scoper

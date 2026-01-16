@@ -14,7 +14,7 @@
  * Author URI: https://rassohilber.com/
  * Text Domain: acf-vimeo-field
  * Requires PHP: 8.2
- * Version: 0.0.0
+ * Version: 0.0.1
  */
 
 namespace Hirasso\ACFVimeoField;
